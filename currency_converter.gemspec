@@ -30,6 +30,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   # Uncomment to register a new dependency of your gem
+  spec.add_dependency "dry-validation", "~> 1.10"
   spec.add_dependency "faraday", "~> 2.7", ">= 2.7.5"
 
   spec.add_development_dependency "vcr", "~> 6.1"
