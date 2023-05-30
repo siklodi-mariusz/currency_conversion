@@ -18,6 +18,11 @@ module CurrencyConverter # :nodoc:
       (amount / rates[from_currency] * rates[to_currency]).round(2)
     end
 
+    def refresh_rates!
+      @rates = nil
+      rates
+    end
+
     def rates
       @rates ||= Rates.fetch
     end
