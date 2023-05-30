@@ -9,7 +9,15 @@ module CurrencyConverter
 
     def initialize(base_currency)
       @base_currency = base_currency
+      @rates = {}
       @rates_source = "#{EXCHANGE_API}/#{base_currency}"
+    end
+
+    def [](currency)
+      conversion_rate = rates[currency]
+      raise ConversionRateNotFound, "Conversion rate for '#{currency}' not found" unless conversion_rate
+
+      conversion_rate
     end
 
     def fetch
@@ -18,6 +26,7 @@ module CurrencyConverter
       raise Error, "Error fetching rates from #{rates_source}" unless response.success?
 
       @rates = JSON.parse(response.body)["rates"]
+      self
     end
 
     class << self

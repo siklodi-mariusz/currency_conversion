@@ -7,6 +7,7 @@ require_relative "currency_converter/conversion_contract"
 
 module CurrencyConverter # :nodoc:
   class Error < StandardError; end
+  class ConversionRateNotFound < Error; end
 
   class << self
     def convert(from_currency, amount, to_currency)
