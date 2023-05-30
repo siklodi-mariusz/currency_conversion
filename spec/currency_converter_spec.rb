@@ -5,7 +5,27 @@ RSpec.describe CurrencyConverter do
     expect(CurrencyConverter::VERSION).not_to be nil
   end
 
-  xit "does something useful" do
-    expect(false).to eq(true)
+  describe ".convert" do
+    let(:from_currency) { "USD" }
+    let(:to_currency) { "EUR" }
+    let(:amount) { 100 }
+    let(:rates) { { "USD" => 1, "EUR" => 0.9 } }
+
+    subject { described_class.convert(from_currency, amount, to_currency) }
+
+    before do
+      allow(described_class).to receive(:rates).and_return(rates)
+    end
+
+    context "when converting from USD to EUR" do
+      it { is_expected.to eq(90) }
+    end
+
+    context "when converting from EUR to USD" do
+      let(:from_currency) { "EUR" }
+      let(:to_currency) { "USD" }
+
+      it { is_expected.to eq(111.11) }
+    end
   end
 end
